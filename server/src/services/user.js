@@ -53,3 +53,42 @@ export const signInUser = async function (req, res, next) {
     next(error);
   }
 };
+
+export const getUser = async function (req, res, next) {
+  try {
+    const { userId } = req;
+    const user = await UserController.findOneById(userId);
+    if (!user) {
+      throw new Error('user not found');
+    }
+    delete user.password;
+    return res.status(200).json({
+      success: 1,
+      user,
+    });
+  } catch (error) {
+    error.status = 404;
+    next(error);
+  }
+};
+
+export const updateUser = async function (req, res, next) {
+  const values = req.body;
+  try {
+    const { userId } = req;
+    const user = await UserController.findOneById(userId);
+    if (!user) {
+      throw new Error('user not found');
+    }
+    const updatedUser = await UserController.updateUserById(values, userId);
+    console.log('updated user', updatedUser)
+    delete updatedUser.password;
+    return res.status(200).json({
+      success: 1,
+      user: updatedUser,
+    });
+  } catch (error) {
+    error.status = 404;
+    next(error);
+  }
+};

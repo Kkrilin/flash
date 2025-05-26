@@ -25,18 +25,19 @@ export default function AuthLayout() {
               height: "100%",
               width: "30%",
               objectFit: "contain",
+              opacity: "0.6",
             }}
           ></div>
           <div
-            className="bg-amber-950"
+            // className="bg-amber-950"
             style={{
-              background: `url(${running})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              height: "100%",
+              // background: `url(${running})`,
+              // backgroundSize: "cover",
+              // backgroundPosition: "center",
+              // backgroundRepeat: "no-repeat",
+              // height: "100%",
+              // objectFit: "contain",
               width: "40%",
-              objectFit: "contain",
             }}
           >
             <Outlet />
@@ -50,6 +51,7 @@ export default function AuthLayout() {
               height: "100%",
               width: "30%",
               objectFit: "contain",
+              opacity: "0.6",
             }}
           ></div>
         </main>

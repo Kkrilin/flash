@@ -3,13 +3,17 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { pool } from './model/index.js';
 
-// routes import
-import authRouter from './routes/auth.js';
-import errorHandler from './middleware/errorHandler.js';
-
 const app = express();
 const port = 3000;
 
+// meddileWare
+import errorHandler from './middleware/errorHandler.js';
+import { authenticate } from './middleware/userAuth.js';
+
+// routes import
+import authRouter from './routes/auth.js';
+import userRouter from './routes/user.js'
+import activityRouter from './routes/activity.js'
 
 // Middleware to log requests
 app.use((req, res, next) => {
@@ -28,6 +32,9 @@ app.use('/running', (req, res) => {
 
 //  routes
 app.use('/auth', authRouter);
+app.use('/api', authenticate);
+app.use('/api/users', userRouter);
+app.use('/api/activities', activityRouter);
 
 app.use((req, res, next) => {
   const errorMessage = `Route not found: ${req.method} ${req.originalUrl}`;

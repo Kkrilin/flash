@@ -2,6 +2,20 @@ import { pool } from '../model/index.js';
 
 const UserController = {};
 
+UserController.findOneById = async (userId) => {
+  const requiredQuery = `
+  SELECT * from users
+  WHERE id = $1
+  `;
+  try {
+    const result = await pool.query(requiredQuery, [userId]);
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error finding user:', err);
+    throw err;
+  }
+};
+
 UserController.findOneByEmail = async (email) => {
   const requiredQuery = `
       SELECT * FROM users
@@ -47,6 +61,31 @@ UserController.signUpUser = async (values) => {
   } catch (err) {
     console.error('Error inserting user:', err);
     throw err;
+  }
+};
+
+UserController.updateUserById = async (values, userId) => {
+  const { age, gender, aadhar_number, address } = values;
+
+  const requiredQuery = `
+  update users
+  set age = $2,
+      gender = $3,
+      aadhar_number = $4,
+      address = $5
+      where id = $1
+      RETURNING *;
+  `;
+
+  const queryValues = [userId, age, gender, aadhar_number, address];
+
+  try {
+    const result = await pool.query(requiredQuery, queryValues);
+    console.log('result', result);
+    return result.rows[0];
+  } catch (error) {
+    console.error('error updating user:', error);
+    throw error;
   }
 };
 

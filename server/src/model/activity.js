@@ -3,10 +3,14 @@ import { pool } from './index.js';
 const activityTableQuery = `
   CREATE TABLE IF NOT EXISTS activities (
     id serial PRIMARY KEY,
-    distance INTEGER,
-    timer INTEGER,
-    name TEXT,
-    userId INTEGER,
+    distance_meter INTEGER NOT NULL,
+    timer_second INTEGER NOT NULL ,
+    name TEXT NOT NULL,
+    isfav BOOLEAN NOT NULL DEFAULT false,
+    visible_dashboard BOOLEAN NOT NULL DEFAULT false,
+    userId INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (userId) REFERENCES users(id)
   );
 `;

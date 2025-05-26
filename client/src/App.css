@@ -6,6 +6,11 @@
   box-sizing: border-box;
 } */
 
+body {
+  background-color: black;
+  color: white;
+}
+
 .main_left {
   background-image: url("./assets/cycling.jpeg");
 }
@@ -23,4 +28,80 @@
   top: -1px;
   right: -8px;
   color: rgb(122, 10, 10);
+}
+
+.profile_data_container div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.profile_data_container div span:first-of-type {
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+}
+
+.profile_data_container div span:nth-child(2) {
+  font-weight: 400;
+  font-size: 1rem;
+  background-color: rgb(226, 223, 223);
+  padding: 4px 8px;
+  min-width: 12rem;
+  /* max-width: 12rem; */
+  min-height: 2rem;
+  border-radius: 6px;
+  text-align: center;
+  color: black;
+}
+
+.profile_data_container div input {
+  font-weight: 400;
+  font-size: 1rem;
+  background-color: rgb(226, 223, 223);
+  padding: 4px 8px;
+  min-width: 12rem;
+  min-height: 2rem;
+  border-radius: 6px;
+  border: 1px solid orange;
+  outline: none;
+  color: black;
+}
+
+.profile_data_container div select {
+  font-weight: 400;
+  font-size: 1rem;
+  background-color: rgb(226, 223, 223);
+  padding: 4px 8px;
+  min-width: 12rem;
+  min-height: 2rem;
+  border-radius: 6px;
+  border: 1px solid orange;
+  outline: none;
+  color: black;
+}
+
+.profile_data_container div input:focus {
+  border-color: brown;
+}
+table thead {
+  background-color: rgb(161, 161, 161);
+}
+
+table {
+  border: 1px solid black;
+}
+
+table,
+th,
+td {
+  padding: 8px 16px;
+  border-right: 1px solid black;
+  border-collapse: collapse;
+}
+
+td {
+  color: white;
+  background-color: rgba(22, 22, 22, 0.843);
 }

@@ -8,5 +8,16 @@ export const requestConfig = {
   },
 };
 
+// auth
 export const userSignUpUrl = `${serverBaseUrl}/auth/signup`;
 export const userSignInUrl = `${serverBaseUrl}/auth/signin`;
+
+// user
+export const userBaseUrl = `${serverBaseUrl}/api/users`;
+
+// activity
+export const activityBaseUrl = `${serverBaseUrl}/api/activities`;
+
+// dashBoadrActivty
+
+export const dashboardActivityUrl = `${serverBaseUrl}/api/activities/dashboard`;

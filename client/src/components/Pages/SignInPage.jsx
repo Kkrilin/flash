@@ -45,7 +45,7 @@ export default function SignIn() {
 
   return (
     <div className="flex justify-center items-center h-full ">
-      <div className=" px-10 py-4 bg-amber-600 rounded-md text-white">
+      <div className=" px-10 py-4 bg-neutral-800 rounded-md text-white">
         <h1 className="text-2xl text-center py-5">Sign In</h1>
         <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-4">
           <label className="flex flex-col gap-2">
@@ -54,7 +54,7 @@ export default function SignIn() {
               onChange={(e) => handleChange(e)}
               name="email"
               value={formData.email}
-              className=" px-2 outline-0 bg-amber-900 border-amber-700  h-10 rounded-md active:border-amber-950"
+              className=" px-2 outline-0 bg-neutral-900 border-amber-700  h-10 rounded-md active:border-amber-950"
               type="email"
             />
           </label>
@@ -64,13 +64,13 @@ export default function SignIn() {
               onChange={(e) => handleChange(e)}
               name="password"
               value={formData.password}
-              className=" px-2 outline-0 bg-amber-900 border-amber-700  h-10 rounded-md active:border-amber-950"
+              className=" px-2 outline-0 bg-neutral-900 border-amber-700  h-10 rounded-md active:border-amber-950"
               type="password"
             />
           </label>
           <button
             type="submit"
-            className="bg-amber-950 text-center py-2 rounded-md  capitalize"
+            className= "cursor-pointer bg-neutral-900 text-center py-2 rounded-md  capitalize hover:bg-neutral-600"
           >
             sign in
           </button>
