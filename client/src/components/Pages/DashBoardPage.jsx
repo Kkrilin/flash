@@ -83,7 +83,7 @@ export default function DashBoardPage() {
           {dashbordData.map((dd) => {
             const speed = dd.distance_meter / dd.timer_second;
             return (
-              <div className="px-2 py-2  bg-neutral-800 rounded-md relative shadow-2xs">
+              <div className="px-2 py-2  bg-neutral-800 rounded-md relative shadow-2xs hover:scale-105 transition-transform">
                 <img
                   className="opacity-60 h-40 object-cover w-[220px] "
                   // width={220}
