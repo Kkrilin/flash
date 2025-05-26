@@ -9,7 +9,7 @@ ActivityController.create = async (values, userId) => {
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *;
   `;
-
+  console.log('values', values);
   const queryValues = [name, timer, distance, isFav, userId];
   try {
     const result = await pool.query(requiredQuery, queryValues);
@@ -23,7 +23,8 @@ ActivityController.create = async (values, userId) => {
 ActivityController.findAllbyUserId = async (userId) => {
   const requiredQuery = `
     select * from activities
-    where userId = $1;
+    where userId = $1
+    order by id desc;
     `;
 
   const queryValues = [userId];

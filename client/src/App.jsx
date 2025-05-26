@@ -15,6 +15,7 @@ import DashBoardPage from "./components/Pages/DashBoardPage";
 // Layout
 import ProfileLayout from "./components/Layout/ProfileLayout";
 import AuthLayout from "./components/Layout/AuthLayout";
+import NotFound from "./components/Common/NotFound";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path="performance" element={<PerformancePage />} />
               <Route path="dashboard" element={<DashBoardPage />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

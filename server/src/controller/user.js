@@ -45,6 +45,20 @@ UserController.findOneByMobileNumber = async (mobileNumber) => {
   }
 };
 
+UserController.findOneByAadhar_number = async (aadharNumber) => {
+  const requiredQuery = `
+    SELECT * FROM users
+    WHERE aadhar_number = $1
+    `;
+  try {
+    const result = await pool.query(requiredQuery, [aadharNumber]);
+    return result.rows[0];
+  } catch (err) {
+    console.error('Error finding user by aadhar_number:', err);
+    throw err;
+  }
+};
+
 UserController.signUpUser = async (values) => {
   const { name, email, password, mobileNumber: number } = values;
   console.log('value', values);
@@ -72,7 +86,8 @@ UserController.updateUserById = async (values, userId) => {
   set age = $2,
       gender = $3,
       aadhar_number = $4,
-      address = $5
+      address = $5,
+      updated_at = CURRENT_TIMESTAMP
       where id = $1
       RETURNING *;
   `;

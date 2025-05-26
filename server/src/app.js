@@ -12,8 +12,8 @@ import { authenticate } from './middleware/userAuth.js';
 
 // routes import
 import authRouter from './routes/auth.js';
-import userRouter from './routes/user.js'
-import activityRouter from './routes/activity.js'
+import userRouter from './routes/user.js';
+import activityRouter from './routes/activity.js';
 
 // Middleware to log requests
 app.use((req, res, next) => {
@@ -44,7 +44,6 @@ app.use((req, res, next) => {
     message: errorMessage,
   });
 });
-
 
 app.use(errorHandler);
 

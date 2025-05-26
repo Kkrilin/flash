@@ -36,6 +36,7 @@ export default function SignUP() {
       navigate("/user/activity");
       console.log(response.data);
     } catch (error) {
+      toast.error(error.response?.data?.message);
       console.log(error.message);
     }
   };
@@ -50,12 +51,17 @@ export default function SignUP() {
       toast.error("email is empty");
       return;
     }
-    if (!formData.mobileNumber) {
-      toast.error("mobileNumber is empty");
+    if (!formData.mobileNumber || formData.mobileNumber.length !== 10) {
+      toast.error("invalid mobile number");
       return;
     }
-    if (!formData.password || formData.password < 6) {
+
+    if (!formData.password) {
       toast.error("password is empty");
+      return;
+    }
+    if (formData.password.length < 6) {
+      toast.error("password length atleast 6 required");
       return;
     }
     signUpUser();
@@ -106,11 +112,11 @@ export default function SignUP() {
               type="password"
             />
           </label>
-          <button className="bg-neutral-900 text-center py-2 rounded-md capitalize hover:bg-neutral-950">
+          <button className="bg-neutral-700 text-center py-2 rounded-md capitalize hover:bg-neutral-600">
             sign up
           </button>
         </form>
-        <div>
+        <div className="py-2">
           <h1>
             Already have an Account?
             <Link className="text-blue-700 px-2 capitalize " to="/signin">

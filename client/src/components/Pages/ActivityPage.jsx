@@ -4,6 +4,7 @@ import axios from "axios";
 import { activityArray, emptyProfileField } from "../../helper/utils";
 import { activityBaseUrl, requestConfig } from "../../helper/api";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export default function ActivityPage() {
   const [activityName, setActivityName] = useState("swimming");
@@ -23,6 +24,15 @@ export default function ActivityPage() {
   const handleAction = (action) => {
     switch (action) {
       case "start":
+        console.log("distance", distance);
+        if (!distance) {
+          toast.error("distance is mandatory");
+          return;
+        }
+        if (String(distance).includes(".")) {
+          toast.error("distance must be integer without dot");
+          return;
+        }
         if (timer.current) clearInterval(timer.current);
         setAction("start");
         timer.current = setInterval(() => {
@@ -47,7 +57,7 @@ export default function ActivityPage() {
 
   const resetData = () => {
     setActivityName("swimming");
-    setDistance(0);
+    setDistance(1);
     setFavorite(false);
     handleAction("reset");
   };
@@ -57,14 +67,24 @@ export default function ActivityPage() {
       toast.error("please set timer");
       return;
     }
+    if (!distance) {
+      toast.error("distance is mandatory");
+      return;
+    }
+    if (String(distance).includes(".")) {
+      toast.error("distance must be integer without dot");
+      return;
+    }
     const payload = {
-      distance,
+      distance: ["swimming", "walking"].includes(activityName)
+        ? distance
+        : distance * 1000,
       favorite,
-      timer: time,
+      timer: +time / 1000,
       name: activityName,
     };
     console.log(payload, 1111);
-    return;
+    // return;
     try {
       const res = await axios.post(activityBaseUrl, payload, requestConfig);
       console.log(res.data);
@@ -83,15 +103,21 @@ export default function ActivityPage() {
       <h1 className="text-center w-full my-40">
         Please complete:{" "}
         <strong className="text-red-700"> {emptyField.join(",  ")}</strong> by
-        going to profile tab top right corner
+        going to
+        <Link to="/user/profile">
+          <button className="px-2 py-1 mx-2 rounded-md bg-neutral-600">
+            profile tab
+          </button>
+        </Link>
+        top right corner
       </h1>
     );
   }
-
+  console.log("distance", distance);
   return (
-    <div>
-      <div className="px-50 py-10">
-        <h1 className="my-10 text-2xl">Activity</h1>
+    <div className="m-auto">
+      <div className="px-10 py-6 bg-neutral-800 rounded-2xl">
+        <h1 className="my-10 py-4 text-2xl">Activity</h1>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
             <label className="capitalize text-xl" htmlFor="activity">
@@ -126,7 +152,14 @@ export default function ActivityPage() {
             </label>
             <input
               value={distance}
-              onChange={(e) => setDistance(e.target.value)}
+              onChange={(e) => {
+                setDistance(+e.target.value || "");
+              }}
+              onKeyDown={(e) => {
+                if (["-", "e", "+", "."].includes(e.key)) {
+                  e.preventDefault();
+                }
+              }}
               name="distance"
               className="border w-40 h-10 px-2 border-neutral-600 rounded-md "
               type="number"

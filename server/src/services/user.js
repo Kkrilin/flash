@@ -74,14 +74,14 @@ export const getUser = async function (req, res, next) {
 
 export const updateUser = async function (req, res, next) {
   const values = req.body;
+  const { aadhar_number } = values;
   try {
     const { userId } = req;
-    const user = await UserController.findOneById(userId);
-    if (!user) {
-      throw new Error('user not found');
+    const user = await UserController.findOneByAadhar_number(aadhar_number);
+    if (user) {
+      throw new Error('Invalid: Aadhar number  in use');
     }
     const updatedUser = await UserController.updateUserById(values, userId);
-    console.log('updated user', updatedUser)
     delete updatedUser.password;
     return res.status(200).json({
       success: 1,

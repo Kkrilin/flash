@@ -10,12 +10,16 @@ import {
 import running from "../../assets/running.avif";
 import swimming from "../../assets/swimming.jpeg";
 import cycling from "../../assets/cycling.jpeg";
+import trekking from "../../assets/trekking.jpg";
+import walking from "../../assets/walking.jpg";
 import axios from "axios";
 
 const imageMap = {
-  running: running,
-  swimming: swimming,
-  cycling: cycling,
+  running,
+  swimming,
+  cycling,
+  trekking,
+  walking,
 };
 
 export default function DashBoardPage() {
@@ -64,31 +68,36 @@ export default function DashBoardPage() {
     removeFromDashBoard(activityId);
   };
   return (
-    <div>
-      <div className="px-20 py-10">
-        <h2>Dashboard</h2>
+    <div className="mx-auto">
+      <div className="px-20 py-10 ">
+        <h2 className="text-2xl">Dashboard</h2>
         <div
-          className="flex grow gap-4 p-10 rounded-2xl"
+          className=" custom_scroll flex flex-wrap gap-4 p-10 rounded-2xl"
           style={{
             backgroundColor: "#121212",
             width: "80vw",
+            maxHeight: "80vh",
+            overflowY: "auto",
           }}
         >
           {dashbordData.map((dd) => (
-            <div className="px-2 py-2 bg-neutral-800 rounded-md relative shadow-2xs">
+            <div className="px-2 py-2  bg-neutral-800 rounded-md relative shadow-2xs">
               <img
-                className="opacity-60"
+                className="opacity-60 h-40 object-cover "
                 width={200}
                 src={imageMap[dd.name]}
                 alt=""
               />
               <div>
                 <h1>activityName :{dd.name}</h1>
-                <h1>time : {dd.timer / 1000} s</h1>
                 <h1>
-                  distance : {dd.distance}{" "}
+                  distance :{" "}
+                  {["swimming", "walking"].includes(dd.name)
+                    ? dd.distance_meter
+                    : dd.distance_meter / 1000}{" "}
                   {["swimming", "walking"].includes(dd.name) ? "m" : "km"}
                 </h1>
+                <h1>time : {dd.timer_second} s</h1>
                 {dd.isfav ? (
                   <FavoriteIcon className="text-red-900  absolute top-3 left-3" />
                 ) : (

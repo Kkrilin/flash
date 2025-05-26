@@ -70,16 +70,16 @@ export default function SignIn() {
           </label>
           <button
             type="submit"
-            className= "cursor-pointer bg-neutral-900 text-center py-2 rounded-md  capitalize hover:bg-neutral-600"
+            className="cursor-pointer bg-neutral-700 text-center py-2 rounded-md  capitalize hover:bg-neutral-600"
           >
             sign in
           </button>
         </form>
-        <div>
+        <div className="py-2">
           <h1>
             Don't have an Account?
             <Link className="text-blue-700 px-2 capitalize" to="/signup">
-              Singup
+              Sign up
             </Link>
           </h1>
         </div>

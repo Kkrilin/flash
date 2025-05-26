@@ -6,10 +6,12 @@ import axios from "axios";
 import { requestConfig, userBaseUrl } from "../../helper/api";
 import { setProfileData } from "../../redux/slice/profileSlice";
 import { useDispatch } from "react-redux";
+import { emptyProfileField } from "../../helper/utils";
 
 export default function ProfilePage() {
   const [isEdit, setIsEdit] = useState(false);
   const profile = useSelector((state) => state.profile);
+  const emptyField = emptyProfileField(profile);
   const dispatch = useDispatch();
   const [profilePayloadData, setProfilePayloadData] = useState({
     gender: "male",
@@ -52,8 +54,7 @@ export default function ProfilePage() {
       dispatch(setProfileData(response.data.user));
       setIsEdit(false);
     } catch (err) {
-      console.log(err);
-      toast.error("something went Wrong");
+      toast.error(err.response?.data?.message || '"something went Wrong"');
     }
   };
 
@@ -168,25 +169,27 @@ export default function ProfilePage() {
             {!isEdit && <span>{profile.address || "-"} </span>}
           </div>
         </div>
-        <div className="flex justify-end px-10 gap-4">
-          <button
-            style={{}}
-            onClick={() => setIsEdit(true)}
-            className="py-2 px-4 bg-amber-950 text-white rounded-md"
-          >
-            edit
-          </button>
-          <button
-            onClick={() => handleSubmit()}
-            style={{
-              cursor: !isEdit ? "not-allowed" : "pointer",
-            }}
-            disabled={!isEdit}
-            className="py-2 px-4 bg-amber-950 text-white rounded-md"
-          >
-            save
-          </button>
-        </div>
+        {emptyField.length > 0 && (
+          <div className="flex justify-end px-10 gap-4">
+            <button
+              style={{}}
+              onClick={() => setIsEdit(true)}
+              className="py-2 px-4 bg-amber-950 text-white rounded-md"
+            >
+              edit
+            </button>
+            <button
+              onClick={() => handleSubmit()}
+              style={{
+                cursor: !isEdit ? "not-allowed" : "pointer",
+              }}
+              disabled={!isEdit}
+              className="py-2 px-4 bg-amber-950 text-white rounded-md"
+            >
+              save
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -110,17 +110,18 @@ export default function PerformancePage() {
   let filteredActivities = [...activities];
 
   if (filter === "fav") {
+    console.log("filter", filter);
     filteredActivities = activities.filter((act) => act.isfav);
   }
 
   if (sort.speed) {
-    filteredActivities = [...activities].sort((a, b) =>
+    filteredActivities = [...filteredActivities].sort((a, b) =>
       sort.speed === "asc"
-        ? a.distance / a.timer - b.distance / b.timer
-        : b.distance / b.timer - a.distance / a.timer
+        ? a.distance_meter / a.timer_second - b.distance_meter / b.timer_second
+        : b.distance_meter / b.timer_second - a.distance_meter / a.timer_second
     );
   } else if (sort.date) {
-    filteredActivities = [...activities].sort((a, b) => {
+    filteredActivities = [...filteredActivities].sort((a, b) => {
       const first = new Date(a.created_at);
       const second = new Date(b.created_at);
       return sort.date === "asc" ? first - second : second - first;
@@ -146,9 +147,9 @@ export default function PerformancePage() {
             favorite
           </button>
         </div>
-        <div className="flex justify-center">
+        <div className="custom_scroll flex justify-center max-h-160 overflow-y-auto relative">
           <table>
-            <thead>
+            <thead className="sticky top-0">
               <tr>
                 <th>S.no</th>
                 <th>activityName</th>
@@ -171,49 +172,55 @@ export default function PerformancePage() {
               </tr>
             </thead>
             <tbody>
-              {filteredActivities.map((act, i) => (
-                <tr>
-                  <th>{i + 1}</th>
-                  <td>
-                    {act.name}
-                    {act.isfav ? (
-                      <FavoriteIcon className="text-red-300 px-1" />
-                    ) : (
-                      ""
-                    )}
-                  </td>
-                  <td>
-                    {((act.distance * 1000) / act.timer).toFixed(3)}
-                    <span>
-                      {" "}
-                      {["swimming", "walking"].includes(act.name)
-                        ? "m/s"
-                        : "km/s"}
-                    </span>
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => handleDelete(act.id)}
-                      className="px-2 py-1 rounded-xl bg-neutral-700"
-                    >
-                      <DeleteIcon />
-                    </button>
-                  </td>
-                  <td>{new Date(act.created_at).toLocaleDateString()}</td>
-                  <td className="text-center">
-                    <button
-                      className="px-2 py-1  rounded-xl bg-neutral-700"
-                      onClick={() => handleDashBoardClick(act)}
-                    >
-                      {act.visible_dashboard ? (
-                        <VisibilityIcon />
+              {filteredActivities.map((act, i) => {
+                const speed = act.distance_meter / act.timer_second;
+                return (
+                  <tr>
+                    <th>{i + 1}</th>
+                    <td>
+                      {act.name}
+                      {act.isfav ? (
+                        <FavoriteIcon className="text-red-300 px-1" />
                       ) : (
-                        <VisibilityOffIcon />
+                        ""
                       )}
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td>
+                      {(["swimming", "walking"].includes(act.name)
+                        ? speed
+                        : speed / 1000
+                      ).toFixed(3)}
+                      <span>
+                        {" "}
+                        {["swimming", "walking"].includes(act.name)
+                          ? "m/s"
+                          : "km/s"}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleDelete(act.id)}
+                        className="px-2 py-1 rounded-xl bg-neutral-700"
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </td>
+                    <td>{new Date(act.created_at).toLocaleDateString()}</td>
+                    <td className="text-center">
+                      <button
+                        className="px-2 py-1  rounded-xl bg-neutral-700"
+                        onClick={() => handleDashBoardClick(act)}
+                      >
+                        {act.visible_dashboard ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
