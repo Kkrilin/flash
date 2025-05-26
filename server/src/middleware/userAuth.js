@@ -6,7 +6,7 @@ import bycrypt from 'bcrypt';
 // validate register request
 export const validateSignUp = async (req, re, next) => {
   const { name, email, password, mobileNumber: number } = req.body;
-console.log('req.body', req.body)
+  console.log('req.body', req.body);
   try {
     if (!name || !email || !password || !number) {
       throw new Error(`data is insuffiecient to register`);
@@ -22,7 +22,7 @@ console.log('req.body', req.body)
     req.body.password = await bycrypt.hash(password, 10);
     next();
   } catch (error) {
-    error.status = 400;
+    error.status = 401;
     next(error);
   }
 };
