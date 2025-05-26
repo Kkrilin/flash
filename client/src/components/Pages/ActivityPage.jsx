@@ -19,7 +19,6 @@ export default function ActivityPage() {
   const millsecond = time % 1000;
   const seconds = Math.floor((time / 1000) % 60);
   const minutes = Math.floor((time / 60000) % 60);
-  const hours = Math.floor((time / (60000 * 60)) % 60);
 
   const handleAction = (action) => {
     switch (action) {
@@ -27,10 +26,6 @@ export default function ActivityPage() {
         console.log("distance", distance);
         if (!distance) {
           toast.error("distance is mandatory");
-          return;
-        }
-        if (String(distance).includes(".")) {
-          toast.error("distance must be integer without dot");
           return;
         }
         if (timer.current) clearInterval(timer.current);
@@ -119,62 +114,68 @@ export default function ActivityPage() {
       <div className="px-10 py-6 bg-neutral-800 rounded-2xl">
         <h1 className="my-10 py-4 text-2xl">Activity</h1>
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 justify-between w-100">
             <label className="capitalize text-xl" htmlFor="activity">
               name -{" "}
             </label>
-            <select
-              onChange={(e) => setActivityName(e.target.value)}
-              value={activityName}
-              className="w-40 px-1 border border-neutral-600 h-10 rounded-md  outline-none"
-              name=""
-              id="activity"
-            >
-              {activityArray.map((act) => (
-                <option className="text-black bg-neutral-400" value={act.name}>
-                  {act.name}
-                </option>
-              ))}
-            </select>
-            <label className="px-4 flex gap-2 items-center">
-              Favorite
-              <input
-                onChange={() => setFavorite((prv) => !prv)}
-                checked={favorite}
-                type="checkbox"
-                name="isFavorite  "
-              />
-            </label>
+            <div className="flex items-center w-2/3">
+              <select
+                onChange={(e) => !time && setActivityName(e.target.value)}
+                value={activityName}
+                className="w-40 px-1 border border-neutral-600 h-10 rounded-md  outline-none"
+                name=""
+                id="activity"
+              >
+                {activityArray.map((act) => (
+                  <option
+                    className="text-black bg-neutral-400"
+                    value={act.name}
+                  >
+                    {act.name}
+                  </option>
+                ))}
+              </select>
+              <label className="px-4 flex gap-2 items-center">
+                Favorite
+                <input
+                  onChange={() => setFavorite((prv) => !prv)}
+                  checked={favorite}
+                  type="checkbox"
+                  name="isFavorite  "
+                />
+              </label>
+            </div>
           </div>
-          <div className="relative">
+          <div className="relative flex items-center gap-2 justify-between w-100">
             <label className="capitalize text-xl" htmlFor="distance">
               distance -
             </label>
-            <input
-              value={distance}
-              onChange={(e) => {
-                setDistance(+e.target.value || "");
-              }}
-              onKeyDown={(e) => {
-                if (["-", "e", "+", "."].includes(e.key)) {
-                  e.preventDefault();
-                }
-              }}
-              name="distance"
-              className="border w-40 h-10 px-2 border-neutral-600 rounded-md "
-              type="number"
-              min={1}
-            />
-            <span className=" p-3 rounded-2xl text-white mx-5 bg-neutral-600">
-              {["swimming", "walking"].includes(activityName) ? "m" : "km"}
-            </span>
+            <div className="flex items-center w-2/3">
+              <input
+                value={distance}
+                onChange={(e) => {
+                  !time && setDistance(+e.target.value || "");
+                }}
+                onKeyDown={(e) => {
+                  if (["-", "e", "+", "."].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
+                name="distance"
+                className="border w-40 h-10 px-2 border-neutral-600 rounded-md "
+                type="number"
+                min={1}
+              />
+              <span className=" p-3 rounded-2xl text-white mx-5 bg-neutral-600">
+                {["swimming", "walking"].includes(activityName) ? "m" : "km"}
+              </span>
+            </div>
           </div>
           <div className="flex items-center gap-20">
-            <h1>Timer</h1>
+            <h1 className="capitalize text-xl">Timer -</h1>
             <div className="flex flex-col gap-2 items-center">
-              <div className="bg-neutral-400 p-4 rounded-2xl w-46 flex justify-center">
-                <span className="time">{`${hours}`.padStart(2, "0")}</span>
-                <span className="time">:{`${minutes}`.padStart(2, "0")}</span>
+              <div className="bg-neutral-400 p-4 rounded-2xl w-40 flex justify-center text-black font-medium">
+                <span className="time">{`${minutes}`.padStart(2, "0")}</span>
                 <span className="time">:{`${seconds}`.padStart(2, "0")}</span>
                 <span className="time">
                   :{`${millsecond}`.padStart(3, "0")}
@@ -214,7 +215,7 @@ export default function ActivityPage() {
           <div className="text-right">
             <button
               onClick={handleActivitySave}
-              className="bg-neutral-800 text-white px-3 py-2 font-medium rounded-md cursor-pointer hover:bg-neutral-700"
+              className="bg-neutral-900 text-white px-3 py-2 font-medium rounded-md cursor-pointer hover:bg-neutral-700"
             >
               Save
             </button>

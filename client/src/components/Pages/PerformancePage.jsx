@@ -75,54 +75,35 @@ export default function PerformancePage() {
   };
 
   const handleSort = (sortType) => {
-    switch (sortType) {
-      case "speed":
-        setSort((prv) => {
-          if (prv.speed === undefined) {
-            return {
-              speed: "asc",
-            };
-          } else if (prv.speed === "asc") {
-            return {
-              speed: "desc",
-            };
-          } else {
-            return {};
-          }
-        });
-        break;
-      case "date":
-        setSort((prv) => {
-          if (prv.date === undefined) {
-            return {
-              date: "asc",
-            };
-          } else if (prv.date === "asc") {
-            return {
-              date: "desc",
-            };
-          } else {
-            return {};
-          }
-        });
-    }
+    setSort((prv) => {
+      if (prv[sortType] === undefined) {
+        return {
+          [sortType]: "asc",
+        };
+      } else if (prv[sortType] === "asc") {
+        return {
+          [sortType]: "desc",
+        };
+      } else {
+        return {};
+      }
+    });
   };
 
   let filteredActivities = [...activities];
 
   if (filter === "fav") {
-    console.log("filter", filter);
     filteredActivities = activities.filter((act) => act.isfav);
   }
 
   if (sort.speed) {
-    filteredActivities = [...filteredActivities].sort((a, b) =>
+    filteredActivities.sort((a, b) =>
       sort.speed === "asc"
         ? a.distance_meter / a.timer_second - b.distance_meter / b.timer_second
         : b.distance_meter / b.timer_second - a.distance_meter / a.timer_second
     );
   } else if (sort.date) {
-    filteredActivities = [...filteredActivities].sort((a, b) => {
+    filteredActivities.sort((a, b) => {
       const first = new Date(a.created_at);
       const second = new Date(b.created_at);
       return sort.date === "asc" ? first - second : second - first;
@@ -165,7 +146,6 @@ export default function PerformancePage() {
                     {sort.speed === "desc" && <ArrowDownwardIcon />}
                   </span>
                 </th>
-                <th>delete</th>
                 <th onClick={() => handleSort("date")}>
                   date
                   <span>
@@ -173,6 +153,7 @@ export default function PerformancePage() {
                     {sort.date === "desc" && <ArrowDownwardIcon />}
                   </span>
                 </th>
+                <th>delete</th>
                 <th>dashboard</th>
               </tr>
             </thead>
@@ -202,18 +183,18 @@ export default function PerformancePage() {
                           : "km/s"}
                       </span>
                     </td>
+                    <td>{new Date(act.created_at).toLocaleDateString()}</td>
                     <td>
                       <button
                         onClick={() => handleDelete(act.id)}
-                        className="px-2 py-1 rounded-xl bg-neutral-700"
+                        className="cursor-pointer px-2 py-1 rounded-xl bg-neutral-700 text-neutral-400 hover:text-white"
                       >
                         <DeleteIcon />
                       </button>
                     </td>
-                    <td>{new Date(act.created_at).toLocaleDateString()}</td>
                     <td className="text-center">
                       <button
-                        className="px-2 py-1  rounded-xl bg-neutral-700"
+                        className="cursor-pointer px-2 py-1  rounded-xl bg-neutral-700 text-neutral-400 hover:text-white"
                         onClick={() => handleDashBoardClick(act)}
                       >
                         {act.visible_dashboard ? (

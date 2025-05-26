@@ -9,6 +9,7 @@ export default function CircularLoader() {
         width: "100%",
         justifyContent: "center",
         marginTop: "10rem",
+        color: "white",
       }}
     >
       <CircularProgress />

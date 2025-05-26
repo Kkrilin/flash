@@ -42,10 +42,6 @@ export default function DashBoardPage() {
     fetchDashboardData();
   }, []);
 
-  if (loading) {
-    return <CircularLoader />;
-  }
-
   const removeFromDashBoard = async (actId) => {
     try {
       const res = await axios.put(
@@ -66,63 +62,86 @@ export default function DashBoardPage() {
   const handleDashboardDeleteClick = (activityId) => {
     removeFromDashBoard(activityId);
   };
+
+  if (loading) {
+    return <CircularLoader />;
+  }
+
   return (
     <div className="mx-auto">
       <div className="px-20 py-10 ">
         <h2 className="text-2xl">Dashboard</h2>
         <div
-          className=" custom_scroll flex flex-wrap gap-4 p-10 rounded-2xl"
+          className="custom_scroll flex flex-wrap gap-4 p-10 rounded-2xl"
           style={{
             backgroundColor: "#121212",
-            width: "80vw",
+            width: "86vw",
             maxHeight: "80vh",
             overflowY: "auto",
           }}
         >
-          {dashbordData.map((dd) => (
-            <div className="px-2 py-2  bg-neutral-800 rounded-md relative shadow-2xs">
-              <img
-                className="opacity-60 h-40 object-cover "
-                width={220}
-                src={imageMap[dd.name]}
-                alt=""
-              />
-              <div className="py-1">
-                <div className="capitalize font-medium">
-                  <span className="capitalize text-neutral-500 font-semibold text-xl">
-                    activityName :
-                  </span>{" "}
-                  <span className="text-white">{dd.name}</span>
+          {dashbordData.map((dd) => {
+            const speed = dd.distance_meter / dd.timer_second;
+            return (
+              <div className="px-2 py-2  bg-neutral-800 rounded-md relative shadow-2xs">
+                <img
+                  className="opacity-60 h-40 object-cover w-[220px] "
+                  // width={220}
+                  src={imageMap[dd.name]}
+                  alt=""
+                />
+                <div className="py-1">
+                  <div className="capitalize font-medium">
+                    <span className="capitalize text-neutral-500 font-semibold text-xl">
+                      activityName :
+                    </span>{" "}
+                    <span className="text-white">{dd.name}</span>
+                  </div>
+                  <div>
+                    <span className="capitalize text-neutral-500 font-semibold text-xl">
+                      distance :{" "}
+                    </span>{" "}
+                    {["swimming", "walking"].includes(dd.name)
+                      ? dd.distance_meter
+                      : dd.distance_meter / 1000}{" "}
+                    {["swimming", "walking"].includes(dd.name) ? "m" : "km"}
+                  </div>
+                  <div>
+                    <span className="capitalize text-neutral-500 font-semibold text-xl">
+                      time :
+                    </span>{" "}
+                    {dd.timer_second} s
+                  </div>
+                  <div>
+                    <span className="capitalize text-neutral-500 font-semibold text-xl">
+                      speed :
+                    </span>{" "}
+                    {(["swimming", "walking"].includes(dd.name)
+                      ? speed
+                      : speed / 1000
+                    ).toFixed(3)}
+                    <span>
+                      {" "}
+                      {["swimming", "walking"].includes(dd.name)
+                        ? "m/s"
+                        : "km/s"}
+                    </span>
+                  </div>
+                  {dd.isfav ? (
+                    <FavoriteIcon className="text-red-900  absolute top-3 left-3" />
+                  ) : (
+                    ""
+                  )}
+                  <button
+                    onClick={() => handleDashboardDeleteClick(dd.id)}
+                    className="cursor-pointer text-neutral-500 hover:text-neutral-200 absolute top-3 right-3 p-1 bg-neutral-900 rounded-md "
+                  >
+                    <DeleteIcon />
+                  </button>
                 </div>
-                <div>
-                  <span className="capitalize text-neutral-500 font-semibold text-xl">
-                    distance :{" "}
-                  </span>{" "}
-                  {["swimming", "walking"].includes(dd.name)
-                    ? dd.distance_meter
-                    : dd.distance_meter / 1000}{" "}
-                  {["swimming", "walking"].includes(dd.name) ? "m" : "km"}
-                </div>
-                <div>
-                  <span className="capitalize text-neutral-500 font-semibold text-xl">
-                    time :
-                  </span>{" "}
-                  {dd.timer_second} s
-                </div>
-                {dd.isfav ? (
-                  <FavoriteIcon className="text-red-900  absolute top-3 left-3" />
-                ) : (
-                  ""
-                )}
-                <button
-                  onClick={() => handleDashboardDeleteClick(dd.id)}
-                  className="cursor-pointer text-neutral-500 hover:text-neutral-200 absolute top-3 right-3 p-1 bg-neutral-900 rounded-md "
-                >
-                  <DeleteIcon />
-                </button>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

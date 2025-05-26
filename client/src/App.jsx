@@ -16,6 +16,7 @@ import DashBoardPage from "./components/Pages/DashBoardPage";
 import ProfileLayout from "./components/Layout/ProfileLayout";
 import AuthLayout from "./components/Layout/AuthLayout";
 import NotFound from "./components/Common/NotFound";
+import ProtectedRoute from "./components/Common/ProtectedRoute";
 
 function App() {
   return (
@@ -29,7 +30,14 @@ function App() {
               <Route path="signup" element={<SignUP />} />
               <Route path="signin" element={<SignIn />} />
             </Route>
-            <Route path="/user" element={<ProfileLayout />}>
+            <Route
+              path="/user"
+              element={
+                <ProtectedRoute redirectTo="/">
+                  <ProfileLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route path="profile" element={<ProfilePage />} />
               <Route path="activity" element={<ActivityPage />} />
               <Route path="performance" element={<PerformancePage />} />
