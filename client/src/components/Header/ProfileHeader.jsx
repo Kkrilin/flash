@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
@@ -28,33 +28,49 @@ export default function ProfileHeader() {
         </div>
         <nav className="flex gap-25 items-center">
           <ul className="flex gap-10">
-            <Link
-              className="hover:bg-neutral-700 py-2 px-4 rounded-3xl"
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-neutral-700 py-2 px-4 rounded-3xl"
+                  : "hover:bg-neutral-800 py-2 px-4 rounded-3xl"
+              }
               to="/user/dashboard"
             >
               Dashboard
-            </Link>
-            <Link
-              className="hover:bg-neutral-700 py-2 px-4 rounded-3xl"
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-neutral-700 py-2 px-4 rounded-3xl"
+                  : "hover:bg-neutral-800 py-2 px-4 rounded-3xl"
+              }
               to="/user/performance"
             >
               Performance
-            </Link>
-            <Link
-              className="hover:bg-neutral-700 py-2 px-4 rounded-3xl"
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-neutral-700 py-2 px-4 rounded-3xl"
+                  : "hover:bg-neutral-800 py-2 px-4 rounded-3xl"
+              }
               to="/user/activity"
             >
               Activity
-            </Link>
-            <Link
-              className="hover:bg-neutral-700 py-2 px-4 rounded-3xl"
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-neutral-700 py-2 px-4 rounded-3xl"
+                  : "hover:bg-neutral-800 py-2 px-4 rounded-3xl"
+              }
               to="/user/profile"
             >
               Profile
-            </Link>
+            </NavLink>
           </ul>
           <button
-            className="flex gap-1 bg-white py-2 px-4 text-black rounded-3xl font-bold"
+            className="cursor-pointer flex gap-1 bg-white py-2 px-4 text-black rounded-3xl font-bold hover:bg-neutral-200"
             onClick={handleLogout}
           >
             Logout <LogoutIcon />

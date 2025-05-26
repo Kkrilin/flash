@@ -8,6 +8,7 @@ import CircularLoader from "../Common/Loader/CircularLoader";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { activityArray } from "../../helper/utils";
 
 export default function PerformancePage() {
   const [activities, setActivities] = useState([]);
@@ -139,7 +140,11 @@ export default function PerformancePage() {
         <div className="flex items-center gap-2">
           <h1 className="capitalize">filter: </h1>
           <button
-            className="py-2 px-4 bg-neutral-600 rounded-2xl my-2 capitalize font-medium text-white"
+            className={`py-2 px-4 ${
+              filter === "fav"
+                ? "bg-neutral-300 text-black"
+                : "bg-neutral-600 text-white"
+            }  rounded-2xl my-2 capitalize font-medium `}
             onClick={() =>
               filter === "fav" ? setFilter("") : setFilter("fav")
             }

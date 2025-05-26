@@ -25,7 +25,6 @@ const imageMap = {
 export default function DashBoardPage() {
   const [dashbordData, setDashboardData] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(11111111111111);
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
@@ -84,20 +83,32 @@ export default function DashBoardPage() {
             <div className="px-2 py-2  bg-neutral-800 rounded-md relative shadow-2xs">
               <img
                 className="opacity-60 h-40 object-cover "
-                width={200}
+                width={220}
                 src={imageMap[dd.name]}
                 alt=""
               />
-              <div>
-                <h1>activityName :{dd.name}</h1>
-                <h1>
-                  distance :{" "}
+              <div className="py-1">
+                <div className="capitalize font-medium">
+                  <span className="capitalize text-neutral-500 font-semibold text-xl">
+                    activityName :
+                  </span>{" "}
+                  <span className="text-white">{dd.name}</span>
+                </div>
+                <div>
+                  <span className="capitalize text-neutral-500 font-semibold text-xl">
+                    distance :{" "}
+                  </span>{" "}
                   {["swimming", "walking"].includes(dd.name)
                     ? dd.distance_meter
                     : dd.distance_meter / 1000}{" "}
                   {["swimming", "walking"].includes(dd.name) ? "m" : "km"}
-                </h1>
-                <h1>time : {dd.timer_second} s</h1>
+                </div>
+                <div>
+                  <span className="capitalize text-neutral-500 font-semibold text-xl">
+                    time :
+                  </span>{" "}
+                  {dd.timer_second} s
+                </div>
                 {dd.isfav ? (
                   <FavoriteIcon className="text-red-900  absolute top-3 left-3" />
                 ) : (
