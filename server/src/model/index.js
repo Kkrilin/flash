@@ -14,6 +14,10 @@ const dbConfig = {
   database: config.db.database,
   max: 20,
   idleTimeoutMillis: 30000,
+  ssl: true,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 };
 
 export const pool = new Pool(dbConfig);
