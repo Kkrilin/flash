@@ -11,7 +11,7 @@ export default function SignUP() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "mobileNumber") {
-      const mobileRegex = /^[1-9][0-9]*$/;
+      const mobileRegex = /^$|^[1-9][0-9]*$/;
       if (!mobileRegex.test(value)) {
         return;
       }
