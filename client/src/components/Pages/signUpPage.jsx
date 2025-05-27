@@ -123,13 +123,13 @@ export default function SignUP() {
             style={{
               color: "white",
             }}
-            loadingPosition="center"
+            loadingPosition="end"
             loading={loading}
             type="submit"
             variant="contained"
             className="bg-neutral-700 text-center py-2 rounded-md capitalize hover:bg-neutral-600"
           >
-            {loading ? "" : "sign up"}
+            sign up
           </Button>
         </form>
         <div className="py-2">
