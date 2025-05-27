@@ -1,11 +1,15 @@
 import React from "react";
-import swimingImgae from "/home/kundan/varthana/mysocizlactivity/client/src/assets/swimming.jpeg";
+import swimingImgae from "../../assets/swimming.jpeg";
 import cycling from "../../assets/cycling.jpeg";
-import running from "../../assets/running.avif";
 import Header from "../Header/Header";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 export default function AuthLayout() {
+  const isAuthenticated = Boolean(localStorage.getItem("token"));
+
+  if (isAuthenticated) {
+    return <Navigate to="/user/performance" />;
+  }
   return (
     <div
       style={{

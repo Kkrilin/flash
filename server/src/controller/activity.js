@@ -11,6 +11,7 @@ ActivityController.create = async (values, userId) => {
   `;
   console.log('values', values);
   const queryValues = [name, timer, distance, isFav, userId];
+  const client = await pool.connect()
   try {
     const result = await pool.query(requiredQuery, queryValues);
     return result.rows[0];

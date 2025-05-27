@@ -38,6 +38,7 @@ function App() {
                 </ProtectedRoute>
               }
             >
+              <Route index element={<Navigate to="/user/profile" />}></Route>
               <Route path="profile" element={<ProfilePage />} />
               <Route path="activity" element={<ActivityPage />} />
               <Route path="performance" element={<PerformancePage />} />
