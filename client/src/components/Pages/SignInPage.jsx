@@ -80,7 +80,7 @@ export default function SignIn() {
             style={{
               color: "white",
             }}
-            loadingPosition="end"
+            loadingPosition="center"
             loading={loading}
             type="submit"
             variant="contained"
