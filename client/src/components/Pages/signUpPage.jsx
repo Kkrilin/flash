@@ -129,7 +129,7 @@ export default function SignUP() {
             variant="contained"
             className="bg-neutral-700 text-center py-2 rounded-md capitalize hover:bg-neutral-600"
           >
-            sign up
+            {loading ? "" : "sign up"}
           </Button>
         </form>
         <div className="py-2">

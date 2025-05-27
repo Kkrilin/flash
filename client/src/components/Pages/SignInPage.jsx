@@ -86,7 +86,7 @@ export default function SignIn() {
             variant="contained"
             className="cursor-pointer bg-neutral-700 text-center py-2 rounded-md  capitalize hover:bg-neutral-600"
           >
-            sign in
+            {loading ? "" : "sign in"}
           </Button>
         </form>
         <div className="py-2">
