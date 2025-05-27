@@ -8,11 +8,12 @@ import ImageContainer from "../Common/ImageContainer";
 
 export default function LandingPage({ children }) {
   return (
-    <main className="flex h-full">
+    <main className="flex h-full ">
       <ImageContainer text="swimming" img={swimming} />
       <ImageContainer text="running" img={running} />
       <div
         style={{
+          backgroundColor: "#131313",
           width: "28%",
         }}
       >
