@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { requestConfig, userSignInUrl } from "../../helper/api";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Button } from "@mui/material";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -20,6 +22,7 @@ export default function SignIn() {
   };
 
   const signInUser = async () => {
+    setLoading(true);
     try {
       const response = await axios.post(userSignInUrl, formData, requestConfig);
       localStorage.setItem("token", response.data.token);
@@ -27,6 +30,11 @@ export default function SignIn() {
       console.log(response.data);
     } catch (error) {
       console.log(error.message);
+      toast.error(
+        error.response?.data?.message || error.message || "something went wrong"
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,12 +76,18 @@ export default function SignIn() {
               type="password"
             />
           </label>
-          <button
+          <Button
+            style={{
+              color: "white",
+            }}
+            loadingPosition="end"
+            loading={loading}
             type="submit"
+            variant="contained"
             className="cursor-pointer bg-neutral-700 text-center py-2 rounded-md  capitalize hover:bg-neutral-600"
           >
             sign in
-          </button>
+          </Button>
         </form>
         <div className="py-2">
           <h1>

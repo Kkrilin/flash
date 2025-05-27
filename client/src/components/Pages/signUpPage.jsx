@@ -4,9 +4,12 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { requestConfig, userSignUpUrl } from "../../helper/api";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 export default function SignUP() {
   const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,14 +34,17 @@ export default function SignUP() {
   };
 
   const signUpUser = async () => {
+    setLoading(true);
     try {
       const response = await axios.post(userSignUpUrl, formData, requestConfig);
       localStorage.setItem("token", response.data.token);
       navigate("/user/activity");
       console.log(response.data);
     } catch (error) {
-      toast.error(error.response?.data?.message);
+      toast.error(error.response?.data?.message || "something went wrong");
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -113,9 +119,18 @@ export default function SignUP() {
               type="password"
             />
           </label>
-          <button className="bg-neutral-700 text-center py-2 rounded-md capitalize hover:bg-neutral-600">
+          <Button
+            style={{
+              color: "white",
+            }}
+            loadingPosition="end"
+            loading={loading}
+            type="submit"
+            variant="contained"
+            className="bg-neutral-700 text-center py-2 rounded-md capitalize hover:bg-neutral-600"
+          >
             sign up
-          </button>
+          </Button>
         </form>
         <div className="py-2">
           <h1>
