@@ -4,7 +4,7 @@ const activityTableQuery = `
   CREATE TABLE IF NOT EXISTS activities (
     id serial PRIMARY KEY,
     distance_meter INTEGER NOT NULL,
-    timer_second INTEGER NOT NULL ,
+    timer_second REAL NOT NULL ,
     name TEXT NOT NULL,
     isfav BOOLEAN NOT NULL DEFAULT false,
     visible_dashboard BOOLEAN NOT NULL DEFAULT false,

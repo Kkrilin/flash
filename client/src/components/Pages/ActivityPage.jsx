@@ -78,8 +78,7 @@ export default function ActivityPage() {
       timer: +time / 1000,
       name: activityName,
     };
-    console.log(payload, 1111);
-    // return;
+    setAction("pause");
     try {
       const res = await axios.post(activityBaseUrl, payload, requestConfig);
       console.log(res.data);
