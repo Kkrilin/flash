@@ -28,7 +28,7 @@ body {
   position: absolute;
   top: -1px;
   right: -8px;
-  color: rgb(122, 10, 10);
+  color: rgb(192, 10, 10);
 }
 
 .profile_data_container div {
@@ -123,4 +123,13 @@ td {
   width: 10px;
   border-radius: 6px;
   background-color: rgb(87, 87, 87);
+}
+
+input {
+  outline: 1px solid rgb(60, 60, 60);
+}
+
+input:focus {
+  outline-color: rgb(3, 72, 50);
+  box-shadow: 2px 2px 2px rgb(2, 59, 7), -2px -2px 2px rgb(2, 59, 7);
 }
