@@ -70,6 +70,9 @@ export default function ActivityPage() {
       toast.error("distance must be integer without dot");
       return;
     }
+    if (timer.current) {
+      clearInterval(timer.current);
+    }
     const payload = {
       distance: ["swimming", "walking"].includes(activityName)
         ? distance
@@ -78,7 +81,6 @@ export default function ActivityPage() {
       timer: +time / 1000,
       name: activityName,
     };
-    setAction("pause");
     try {
       const res = await axios.post(activityBaseUrl, payload, requestConfig);
       console.log(res.data);
