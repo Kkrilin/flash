@@ -57,19 +57,17 @@ export default function DashBoardPage() {
   }
 
   return (
-    <div className="mx-auto">
+    <div className="w-full">
       <h2 className="text-2xl my-4 mx-10">Dashboard</h2>
-      <div className="flex gap-4 px-10  w-full ">
-        <div className="w-1/2 mx-auto">
-          <div
-            className="custom_scroll flex flex-wrap gap-4 p-10 rounded-2xl"
-            style={{
-              backgroundColor: "#121212",
-              width: "100%",
-              maxHeight: "80vh",
-              overflowY: "auto",
-            }}
-          >
+      <div className="flex  justify-around w-full ">
+        <div
+          style={{
+            backgroundColor: "#121212",
+            maxHeight: "85vh",
+          }}
+          className="custom_scroll p-4  flex justify-center overflow-y-auto rounded-2xl "
+        >
+          <div className=" py-2  grid grid-cols-3 gap-2  rounded-2xl">
             {dashbordData.map((dd) => {
               const speed = dd.distance_meter / dd.timer_second;
               return (
@@ -82,7 +80,7 @@ export default function DashBoardPage() {
             })}
           </div>
         </div>
-        <div className="h-[80vh] w-1/2 bg-neutral-800">
+        <div>
           <MyChart data={chartData} />
         </div>
       </div>

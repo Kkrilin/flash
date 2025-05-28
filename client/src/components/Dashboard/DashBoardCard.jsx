@@ -21,9 +21,9 @@ export default function DashBoardCard({
   handleDashboardDeleteClick,
 }) {
   return (
-    <div className="px-2 py-2  bg-neutral-800 rounded-md relative shadow-2xs hover:scale-105 transition-transform">
+    <div className="d_card px-2 py-2 bg-neutral-800 rounded-md relative shadow-2xs  transition-transform">
       <img
-        className="opacity-60 h-40 object-cover w-[220px] "
+        className="opacity-40 h-40 object-cover w-[220px] "
         src={imageMap[dd.name]}
         alt=""
       />

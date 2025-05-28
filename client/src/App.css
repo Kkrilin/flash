@@ -133,3 +133,7 @@ input:focus {
   outline-color: rgb(3, 72, 50);
   box-shadow: 2px 2px 2px rgb(2, 59, 7), -2px -2px 2px rgb(2, 59, 7);
 }
+
+.d_card:hover img {
+  opacity: 1;
+}
