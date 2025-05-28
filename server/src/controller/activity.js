@@ -79,13 +79,31 @@ ActivityController.getDashboardActivity = async (userId) => {
     select * from activities
     where userId = $1 and visible_dashboard = $2
     `;
+  const queryForChartsData = `
+  SELECT 
+  name, 
+  count(*) as count,
+  SUM(distance_meter) AS total_distance, 
+  ROUND(SUM(timer_second)::numeric, 2) AS total_time
+FROM 
+  activities
+WHERE 
+  userId = $1
+GROUP BY 
+  name;
+   `;
+
+  const client = await pool.connect();
   const queryValues = [userId, true];
   try {
-    const result = await pool.query(requiredQuery, queryValues);
-    return result.rows;
+    const chartData = await client.query(queryForChartsData, [userId]);
+    const result = await client.query(requiredQuery, queryValues);
+    return { dashboardActivity: result.rows, chartData: chartData.rows };
   } catch (error) {
     console.error('error fextching dashboard data :', error);
     throw error;
+  } finally {
+    client.release();
   }
 };
 

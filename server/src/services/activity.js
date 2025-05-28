@@ -70,13 +70,13 @@ export const getDashboardActivity = async (req, res, next) => {
   const { userId } = req;
 
   try {
-    const dashboardActivity =
+    const { dashboardActivity, chartData } =
       await ActivityController.getDashboardActivity(userId);
 
     if (!dashboardActivity) {
       throw new Error('something went wrong');
     }
-    res.status(200).json({ success: 1, dashboardActivity });
+    res.status(200).json({ success: 1, dashboardActivity, chartData });
   } catch (error) {
     error.status = 404;
     next(error);
