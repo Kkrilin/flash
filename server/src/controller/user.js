@@ -11,8 +11,8 @@ UserController.findOneById = async (userId) => {
     const result = await pool.query(requiredQuery, [userId]);
     return result.rows[0];
   } catch (error) {
-    console.error('Error finding user:', err);
-    throw err;
+    console.error('Error finding user:', error);
+    throw error;
   }
 };
 

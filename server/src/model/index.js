@@ -1,6 +1,5 @@
 import config from '../config.js';
 import activityTable from './activity.js';
-import performanceTable from './performance.js';
 import userTable from './user.js';
 import pg from 'pg';
 
@@ -38,5 +37,4 @@ pool
 (async () => {
   await userTable();
   await activityTable();
-  await performanceTable();
 })();
