@@ -19,7 +19,7 @@ export default function ProfilePage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "age") {
+    if (name === "age" && value) {
       const number = Number(value);
       if (!Number.isInteger(number) || number < 1 || number > 99) {
         toast.error("age must be  between 1 and 99");
